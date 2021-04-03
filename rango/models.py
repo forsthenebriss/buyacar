@@ -35,7 +35,12 @@ class Car(models.Model):
     price = models.IntegerField(default=0)
     is_new = models.BooleanField(default=True)
     other = models.TextField()
+    slug = models.SlugField(unique=True, null=True)
     picture = models.ImageField(upload_to='car_images', blank=True)
     #return name as string for easier manipulation
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Car, self).save(*args, **kwargs)
+    
     def __str__(self):
         return self.name

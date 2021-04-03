@@ -13,12 +13,13 @@
 
 
 {% block sidebar_block %}
-The cheapest cars on the website!
+Want a cheap car? Check these out!
+(idk why these dont work)
 {% if cheap %}
-	{% for c in cheap %}
+	{% for n in cheap %}
 		<li class="nav-item">
-				<a class="nav-link active" href="{% url 'rango:buying' c.name %}">
-					<span data-feather="archive"></span>{{ s }}
+				<a class="nav-link active" href="{% url 'rango:buying' n.name %}">
+					<span data-feather="archive"></span>{{ n }}
 				</a>
 			</li>
 	
@@ -26,8 +27,10 @@ The cheapest cars on the website!
 {% endif %}
 {% endblock %}
 
+
+
+
 {% block body_block %}
-{{ cheap }}
 <ul class="nav flex-column">
 {% if sellers %}
 	{% for s in sellers %}

@@ -5,7 +5,10 @@
 <div class="containerhead">
 	<h1 class="jumbotron-heading">
 	{% if car %}
-		{{ car.name }}
+	
+		{{ car.price }}
+		{{ car.slug }}
+		{{ car }}
 	{% else %}
 		The chosen car does not exist
 	{% endif %}
@@ -15,7 +18,15 @@
 
 {% block sidebar_block %}
 	{% if car %}
-		{{ car.technical }}
+	<div>
+		<ul><h5>BRAND: </h5>{{ car.brand }}</ul>
+		<ul><h5>MODEL: </h5>{{ car.model }}</ul>
+		<ul><h5>YEAR OF MANUFACTURE: </h5>{{ car.year }}</ul>
+		<ul><h5>PRICE: </h5>{{ car.price }}</ul>
+		<ul><h5>IS THIS CAR NEW? </h5>{{ car.is_new }}</ul>
+		<ul><h5>OTHER INFORMATION: </h5>{{ car.other }}</ul>
+		
+	<div>
 	{% else %}
 		Could not receive technical information about non-existing car
 	{% endif %}
@@ -23,11 +34,15 @@
 							
 {% block body_block %}
 	<div>
-		<img src="{% static '{{ car.name }}' %}"
+		pic not working
+		<img src="{% static 'media/car_pictures/{{ car.picture }}' %}"
 		alt="{{ car.name }}"  width="2000" height="675"/>
 	</div>
 	<div>
-	Profile of seller(depends on how stuff is stored)
+		SELLER:
+		<a class="nav-link active" href="{% url 'rango:show_seller' car.seller %}">
+			<span data-feather="archive"></span>	{{ car.seller }}
+		</a>
 	</div>
 {% endblock %}
 
@@ -36,7 +51,7 @@
 	{% if user.is_authenticated %}
 		{% if car %}
 		Enquire about this vehicle:
-		<li class="nav-item"><a class="nav-link" href="{% url 'rango:enquire' %}">Enquire</a></li>                 
+		<ul class="nav-item"><a class="nav-link" href="{% url 'rango:enquire' %}">Enquire</a></ul>                 
 		{% else %}
 		There is no car to enquire about        
 		{% endif %}

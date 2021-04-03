@@ -20,17 +20,13 @@
 		{% if cars %}
 		<ul>
 			{% for car in cars %}
-			<li><a href="{{ page.url }}">{{ car.name }}</a></li>
+			<li><a href="{% url 'rango:buying' c.slug %}">{{ car.slug }}</a></li>
 			{% endfor %}
 			</ul>
 		{% else %}
 		<strong>This seller does not sell any cars at the moment.</strong>
 		{% endif %}
 		<br>
-		{% if user.is_authenticated %}
-			<a href="{% url 'rango:add_page' category.slug %}">Add Page</a> <br />	
-		{% endif %}	
-			
 	{% else %}
 		Seller does not exist.
 	{% endif %}	

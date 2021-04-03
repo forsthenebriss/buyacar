@@ -114,7 +114,7 @@ def show_seller(request, username):
         seller = UserProfile.objects.get(slug=username)
         car = Car.objects.filter(seller=username)
         #adds findings to the dictionary
-        new_cars = Car.objects.order_by('-year')[:5]
+        new_cars = Car.objects.order_by('year')[:5]
         cheap_cars = Car.objects.order_by('price')[:5] 
     
         context_dict['cars'] = car
@@ -182,19 +182,15 @@ def index(request):
 
 
 #creates a view index
-def buying(request):
+def buying(request, name):
     #cookie function
-    visitor_cookie_handler(request)
-    #takes the 5 most liked categories as a list
-    context_dict = {}
-    #a dictionary to match the variables in templates
-    category_list = {}
-    page_list = {} 
-    #populating the dictionary 
     
-    context_dict['categories'] = category_list
-    context_dict['pages'] = page_list
-    context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
+    context_dict = {}
+    visitor_cookie_handler(request)
+    car = Car.objects.get(name=name)
+    #takes the 5 most liked categories as a list
+    #populating the dictionary 
+    context_dict['car'] = car
     #renders a response for the client with the dict required
     return render(request, 'rango/buying.html', context=context_dict)
 
