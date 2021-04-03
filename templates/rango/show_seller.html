@@ -1,0 +1,37 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	{% if seller %}
+		{{ seller.name }}
+	{% else %}
+		Unknown Seller
+	{% endif %}
+{% endblock %}
+
+
+{% block body_block %}
+	{% if seller %}
+		<div class="jumbotron p-3">
+			<div class="container">
+				<h1 class="jumbotron-heading">{{ s }}</h1>
+			</div>
+		</div>
+		{% if cars %}
+		<ul>
+			{% for car in cars %}
+			<li><a href="{{ page.url }}">{{ car.name }}</a></li>
+			{% endfor %}
+			</ul>
+		{% else %}
+		<strong>This seller does not sell any cars at the moment.</strong>
+		{% endif %}
+		<br>
+		{% if user.is_authenticated %}
+			<a href="{% url 'rango:add_page' category.slug %}">Add Page</a> <br />	
+		{% endif %}	
+			
+	{% else %}
+		Seller does not exist.
+	{% endif %}	
+{% endblock %}		

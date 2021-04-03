@@ -1,0 +1,49 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+<div class="containerhead">
+	<h1 class="jumbotron-heading">
+	{% if car %}
+		{{ car.name }}
+	{% else %}
+		The chosen car does not exist
+	{% endif %}
+</h1>
+	</div>
+{% endblock %}
+
+{% block sidebar_block %}
+	{% if car %}
+		{{ car.technical }}
+	{% else %}
+		Could not receive technical information about non-existing car
+	{% endif %}
+{% endblock %}
+							
+{% block body_block %}
+	<div>
+		<img src="{% static '{{ car.name }}' %}"
+		alt="{{ car.name }}"  width="2000" height="675"/>
+	</div>
+	<div>
+	Profile of seller(depends on how stuff is stored)
+	</div>
+{% endblock %}
+
+
+{% block sidebar_block2 %}
+	{% if user.is_authenticated %}
+		{% if car %}
+		Enquire about this vehicle:
+		<li class="nav-item"><a class="nav-link" href="{% url 'rango:enquire' %}">Enquire</a></li>                 
+		{% else %}
+		There is no car to enquire about        
+		{% endif %}
+	{% else %}
+		<a class="nav-link" href="{% url 'registration_register' %}">Register</a> to enquire about this vehicle.
+                        
+		Already have an account? <a class="nav-link" href="{% url 'auth_login' %}">Log in</a>.
+                         
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% load staticfiles %}
+
+<ul class="nav flex-column">
+{{ sellers }}
+{% if sellers %}
+	{% for s in sellers %}
+		{% if s == current_seller %}
+			<li class="nav-item">
+				<!-- display active category instead of <strong> current -->
+				<a class="nav-link active" href="{% url 'rango:show_seller' s.slug %}">
+					<span data-feather="archive"></span>{{ s.name }}
+				</a>
+			</li>
+		{% else %}
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'rango:show_seller' s.slug %}">
+					<span data-feather="archive"></span>{{ s.name }}
+				</a>
+			</li>
+		{% endif %}
+	{% endfor %}
+	
+{% else %}
+	<li><strong>There are no current sellers.</strong></li>
+{% endif %}
+</ul>
