@@ -110,28 +110,40 @@ def show_seller(request, username):
     #creates a dict that can later be used to pass on stuff
     context_dict = {}
     try:
-        #tries to get a category and pages associated according to the slug
+        #tries to get a seller and cars associated according to the slug
         seller = UserProfile.objects.get(slug=username)
-        car = Car.objects.filter(seller=s)
+        car = Car.objects.filter(seller=username)
         #adds findings to the dictionary
+        new_cars = Car.objects.order_by('-year')[:5]
+        cheap_cars = Car.objects.order_by('price')[:5] 
+    
         context_dict['cars'] = car
         context_dict['sellers'] = seller
+        context_dict['new'] = new_cars
+        context_dict['cheap'] = cheap_cars
+        
         #or throws an exeption
     except UserProfile.DoesNotExist:
         context_dict['sellers'] = None
         context_dict['pages'] = None
     #renders a response for the client with the dict required    
-    return render(request, 'rango/seller.html', context=context_dict)
+    return render(request, 'show_seller.html', context=context_dict)
 
 
 def sellers(request):
     #creates a dict that can later be used to pass on stuff
     context_dict = {}
     try:
-        #tries to get a category and pages associated according to the slug
+        #gets list of users for which is_seller is true
         seller_list = UserProfile.objects.filter(is_seller=True)
         #adds findings to the dictionary
         context_dict['sellers'] = seller_list
+        
+        new_cars = Car.objects.order_by('year')[:5]
+        cheap_cars = Car.objects.order_by('price')[:5] 
+        context_dict['new'] = new_cars
+        context_dict['cheap'] = cheap_cars
+        
         #or throws an exeption
     except UserProfile.DoesNotExist:
         context_dict['sellers'] = None
@@ -167,8 +179,9 @@ def index(request):
     context_dict['pages'] = page_list
     #renders a response for the client with the dict required
     return render(request, 'rango/index.html', context=context_dict)
-#creates a view index
 
+
+#creates a view index
 def buying(request):
     #cookie function
     visitor_cookie_handler(request)
@@ -184,7 +197,8 @@ def buying(request):
     context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
     #renders a response for the client with the dict required
     return render(request, 'rango/buying.html', context=context_dict)
-    
+
+
 
 def enquire(request):
     return HttpResponse("Rango says hey there partner!")

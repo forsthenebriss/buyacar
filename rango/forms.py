@@ -12,7 +12,7 @@ class UserForm(forms.ModelForm):
     
 
 class UserProfileForm(forms.ModelForm):
-   # slug = forms.CharField(widget=forms.HiddenInput(), required=False)
+    slug = forms.CharField(widget=forms.HiddenInput(), required=False)
     class Meta:
         model = UserProfile
         fields = ('website', 'picture','adress', 'postcode', 'is_seller')
@@ -23,7 +23,7 @@ class CarForm(forms.ModelForm):
     brand = forms.CharField(max_length=128, help_text="Please enter the manufacturer of your car")
     model = forms.CharField(max_length=128, help_text="Please enter car's model")
     year = forms.IntegerField()
-    #is_new = forms.BooleanField(required=False)
+    is_new = forms.BooleanField(required=False)
     price = forms.IntegerField()
     other = forms.CharField()
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)

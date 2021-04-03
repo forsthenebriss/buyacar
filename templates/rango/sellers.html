@@ -1,20 +1,48 @@
+{% extends 'rango/base.html' %}
 {% load staticfiles %}
 
+
+{% block title_block %}
+
+<div class="containerhead">
+	<h1 class="jumbotron-heading">
+		List of sellers
+	</h1>
+</div>
+{% endblock %}
+
+
+{% block sidebar_block %}
+The cheapest cars on the website!
+{% if cheap %}
+	{% for c in cheap %}
+		<li class="nav-item">
+				<a class="nav-link active" href="{% url 'rango:buying' c.name %}">
+					<span data-feather="archive"></span>{{ s }}
+				</a>
+			</li>
+	
+	{% endfor %}
+{% endif %}
+{% endblock %}
+
+{% block body_block %}
+{{ cheap }}
 <ul class="nav flex-column">
-{{ sellers }}
 {% if sellers %}
 	{% for s in sellers %}
 		{% if s == current_seller %}
+			{{ current_seller }}
 			<li class="nav-item">
 				<!-- display active category instead of <strong> current -->
 				<a class="nav-link active" href="{% url 'rango:show_seller' s.slug %}">
-					<span data-feather="archive"></span>{{ s.name }}
+					<span data-feather="archive"></span>{{ s }}
 				</a>
 			</li>
 		{% else %}
 			<li class="nav-item">
 				<a class="nav-link" href="{% url 'rango:show_seller' s.slug %}">
-					<span data-feather="archive"></span>{{ s.name }}
+					<span data-feather="archive"></span>{{ s }}
 				</a>
 			</li>
 		{% endif %}
@@ -24,3 +52,21 @@
 	<li><strong>There are no current sellers.</strong></li>
 {% endif %}
 </ul>
+
+{% endblock %}
+
+
+
+{% block sidebar_block2 %}
+Want a new car? Check these out!
+{% if new %}
+	{% for n in new %}
+		<li class="nav-item">
+				<a class="nav-link active" href="{% url 'rango:buying' n.name %}">
+					<span data-feather="archive"></span>{{ n }}
+				</a>
+			</li>
+	
+	{% endfor %}
+{% endif %}
+{% endblock %}
