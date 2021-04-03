@@ -2,31 +2,33 @@
 {% load staticfiles %}
 
 {% block title_block %}
-<div class="containerhead">
-	<h1 class="jumbotron-heading">
 	{% if car %}
 	
-		{{ car.price }}
-		{{ car.slug }}
-		{{ car }}
+		{{ car.name }}
 	{% else %}
 		The chosen car does not exist
 	{% endif %}
-</h1>
-	</div>
 {% endblock %}
 
 {% block sidebar_block %}
 	{% if car %}
+	<center>
 	<div>
+	<ul><h5>
+		{% if car.is_new%}
+			THIS CAR IS BRAND NEW! 
+		{% else %}
+			THIS IS A RESALE CAR IN GREAT CONDITION!
+		{% endif %}</h5></ul>
 		<ul><h5>BRAND: </h5>{{ car.brand }}</ul>
 		<ul><h5>MODEL: </h5>{{ car.model }}</ul>
 		<ul><h5>YEAR OF MANUFACTURE: </h5>{{ car.year }}</ul>
 		<ul><h5>PRICE: </h5>{{ car.price }}</ul>
-		<ul><h5>IS THIS CAR NEW? </h5>{{ car.is_new }}</ul>
+		<ul><h5>OTHER INFORMATION: </h5>{{ car.other }}</ul>
 		<ul><h5>OTHER INFORMATION: </h5>{{ car.other }}</ul>
 		
 	<div>
+	</center>
 	{% else %}
 		Could not receive technical information about non-existing car
 	{% endif %}
@@ -34,15 +36,18 @@
 							
 {% block body_block %}
 	<div>
-		pic not working
-		<img src="{% static 'media/car_pictures/{{ car.picture }}' %}"
+		<img src="{{ MEDIA_URL }}{{ car.picture }}"
 		alt="{{ car.name }}"  width="2000" height="675"/>
 	</div>
 	<div>
-		SELLER:
-		<a class="nav-link active" href="{% url 'rango:show_seller' car.seller %}">
-			<span data-feather="archive"></span>	{{ car.seller }}
-		</a>
+		{% if car.seller %}
+			SELLER:
+			<a class="nav-link active" href="{% url 'rango:show_seller' car.seller %}">
+				<span data-feather="archive"></span>	{{ car.seller }}
+			</a>
+		{% else %}
+			THIS CAR IS CURRENTLY UNAVAILABLE
+		{% endif %}
 	</div>
 {% endblock %}
 

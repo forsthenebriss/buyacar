@@ -3,12 +3,7 @@
 
 
 {% block title_block %}
-
-<div class="containerhead">
-	<h1 class="jumbotron-heading">
 		List of sellers
-	</h1>
-</div>
 {% endblock %}
 
 
@@ -17,11 +12,11 @@ Want a cheap car? Check these out!
 (idk why these dont work)
 {% if cheap %}
 	{% for n in cheap %}
-		<li class="nav-item">
+		<ul class="nav-item">
 				<a class="nav-link active" href="{% url 'rango:buying' n.name %}">
 					<span data-feather="archive"></span>{{ n }}
 				</a>
-			</li>
+			</ul>
 	
 	{% endfor %}
 {% endif %}
@@ -64,11 +59,11 @@ Want a cheap car? Check these out!
 Want a new car? Check these out!
 {% if new %}
 	{% for n in new %}
-		<li class="nav-item">
+		<ul class="nav-item">
 				<a class="nav-link active" href="{% url 'rango:buying' n.name %}">
 					<span data-feather="archive"></span>{{ n }}
 				</a>
-			</li>
+			</ul>
 	
 	{% endfor %}
 {% endif %}

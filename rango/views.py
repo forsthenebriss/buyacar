@@ -105,29 +105,26 @@ def register(request):
                                 'profile_form': profile_form,
                                 'registered': registered})
 
-
 def show_seller(request, username):
     #creates a dict that can later be used to pass on stuff
     context_dict = {}
     try:
-        #tries to get a seller and cars associated according to the slug
+        #gets list of users for which is_seller is true
         seller = UserProfile.objects.get(slug=username)
-        car = Car.objects.filter(seller=username)
+        cars = Car.objects.filter(seller=seller)
         #adds findings to the dictionary
+        context_dict['sellers'] = seller
         new_cars = Car.objects.order_by('year')[:5]
         cheap_cars = Car.objects.order_by('price')[:5] 
-    
-        context_dict['cars'] = car
-        context_dict['sellers'] = seller
         context_dict['new'] = new_cars
         context_dict['cheap'] = cheap_cars
+        context_dict['cars'] =cars
         
         #or throws an exeption
     except UserProfile.DoesNotExist:
         context_dict['sellers'] = None
-        context_dict['pages'] = None
     #renders a response for the client with the dict required    
-    return render(request, 'show_seller.html', context=context_dict)
+    return render(request, 'rango/show_seller.html', context=context_dict)
 
 
 def sellers(request):
@@ -138,7 +135,6 @@ def sellers(request):
         seller_list = UserProfile.objects.filter(is_seller=True)
         #adds findings to the dictionary
         context_dict['sellers'] = seller_list
-        
         new_cars = Car.objects.order_by('year')[:5]
         cheap_cars = Car.objects.order_by('price')[:5] 
         context_dict['new'] = new_cars
@@ -184,7 +180,6 @@ def index(request):
 #creates a view index
 def buying(request, name):
     #cookie function
-    
     context_dict = {}
     visitor_cookie_handler(request)
     car = Car.objects.get(name=name)

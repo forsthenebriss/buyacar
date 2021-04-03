@@ -2,25 +2,21 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	{% if seller %}
-		{{ seller.name }}
+	{% if sellers %}
+		{{ sellers.slug }}
 	{% else %}
 		Unknown Seller
 	{% endif %}
 {% endblock %}
 
-
 {% block body_block %}
-	{% if seller %}
-		<div class="jumbotron p-3">
-			<div class="container">
-				<h1 class="jumbotron-heading">{{ s }}</h1>
-			</div>
-		</div>
+	{% if sellers %}
 		{% if cars %}
 		<ul>
+			<h4>Cars available from this seller</h4>
 			{% for car in cars %}
-			<li><a href="{% url 'rango:buying' c.slug %}">{{ car.slug }}</a></li>
+				<ul><a href="{% url 'rango:buying' car.name %}">{{ car.name }}</a></ul>
+
 			{% endfor %}
 			</ul>
 		{% else %}
