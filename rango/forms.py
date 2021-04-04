@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
-    #additional properties
+
+    # additional properties
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'username', 'email', 'password')
@@ -13,11 +14,13 @@ class UserForm(forms.ModelForm):
 
 class UserProfileForm(forms.ModelForm):
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
+
     class Meta:
         model = UserProfile
-        fields = ('website', 'picture','adress', 'postcode', 'is_seller')
+        fields = ('website', 'picture', 'address', 'postcode', 'is_seller')
 
-#class allowing to create a form from a preexisting model
+
+# class allowing to create a form from a preexisting model
 class CarForm(forms.ModelForm):
     name = forms.CharField(max_length=128, help_text="Please enter name for your ad up to 128 characters")
     brand = forms.CharField(max_length=128, help_text="Please enter the manufacturer of your car")
