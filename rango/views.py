@@ -7,47 +7,51 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 
-#helper function for cookie testing
+
+# helper function for cookie testing
 def get_server_side_cookie(request, cookie, default_val=None):
     val = request.session.get(cookie)
     if not val:
         val = default_val
     return val
-    
+
+
 def visitor_cookie_handler(request):
     visits = int(get_server_side_cookie(request, 'visits', '1'))
     last_visit_cookie = get_server_side_cookie(request, 'last_visit', str(datetime.now()))
-    last_visit_time = datetime.strptime(last_visit_cookie[:-7],
-    '%Y-%m-%d %H:%M:%S')
-    #if more than 1 day
+    last_visit_time = datetime.strptime(last_visit_cookie[:-7], '%Y-%m-%d %H:%M:%S')
+    # if more than 1 day
     if (datetime.now() - last_visit_time).days > 0:
         visits = visits + 1
-            #update last visit
+            # update last visit
         request.session['last_visit'] = str(datetime.now())   
     else:    
-        #set last visit
+        # set last visit
         request.session['last_visit'] = last_visit_cookie
     # Update/set the visits cookie
     request.session['visits'] = visits
 
-#log out 
+
+# log out
 @login_required
 def user_logout(request):
     logout(request)
     return redirect(reverse('rango:index'))
 
-#restricted page only for logged in
-@login_required
+
+# restricted page only for logged in
+@ login_required
 def restricted(request):
     context_dict = {}
     return render(request, 'rango/restricted.html', context=context_dict)
 
+
 def user_login(request):
     if request.method == 'POST':
-    #get the username and password provided by the user
+    # get the username and password provided by the user
         username = request.POST.get('username')
         password = request.POST.get('password')
-        #check whether valid
+        # check whether valid
         user = authenticate(username=username, password=password)
     
         if user:
@@ -67,43 +71,43 @@ def user_login(request):
             
             
 def register(request):
-    #initialized variable to false since nothing has beed done yet
+    # initialized variable to false since nothing has beed done yet
     registered = False
     if request.method =='POST':
-        #using the forms we grab information from data
+        # using the forms we grab information from data
         user_form = UserForm(request.POST)
         profile_form = UserProfileForm(request.POST)
 
-        #if both forms are valid, user is saved
+        # if both forms are valid, user is saved
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
             user.save()
+
             profile = profile_form.save(commit=False)
             profile.user = user
-            #adding profile picture if one was given
+
+            # adding profile picture if one was given
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
-            if 'adress' in request.FILES:
-                profile.picture = request.FILES['adress']
+            if 'address' in request.FILES:
+                profile.picture = request.FILES['address']
             if 'postcode' in request.FILES:
                 profile.picture = request.FILES['postcode']
             profile.save()
-            #change to true since the user has been registered
+            # change to true since the user has been registered
             registered = True
-        #else prints errors
+        # else prints errors
         else:
             print(user_form.errors, profile_form.errors)
-    #else not a http form     
+    # else not a http form
     else:
         user_form = UserForm()
         profile_form = UserProfileForm()
 
-    #finally render the request
-    return render(request, 'rango/register.html',
-                    context = {'user_form': user_form,
-                                'profile_form': profile_form,
-                                'registered': registered})
+    # finally render the request
+    return render(request, 'registration/registration_form.html', context={'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
+
 
 def show_seller(request, username):
     #creates a dict that can later be used to pass on stuff
@@ -125,6 +129,7 @@ def show_seller(request, username):
         context_dict['sellers'] = None
     #renders a response for the client with the dict required    
     return render(request, 'rango/show_seller.html', context=context_dict)
+
 
 
 def sellers(request):
@@ -156,6 +161,7 @@ def about(request):
     #renders a response for the client with the dict required
     return render(request, 'rango/about.html', context=context_dict)
 
+
 #creates a view index
 def index(request):
     #cookie function
@@ -177,7 +183,7 @@ def index(request):
     return render(request, 'rango/index.html', context=context_dict)
 
 
-#creates a view index
+# creates a view index
 def buying(request, name):
     #cookie function
     context_dict = {}
@@ -188,7 +194,6 @@ def buying(request, name):
     context_dict['car'] = car
     #renders a response for the client with the dict required
     return render(request, 'rango/buying.html', context=context_dict)
-
 
 
 def enquire(request):
