@@ -1,0 +1,57 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %} 
+
+{% block title_block %}
+	Sell your car today!
+{% endblock %}
+
+{% block sidebar_block %}
+Want a cheap car? Check these out!
+(idk why these dont work)
+{% if cheap %}
+	{% for n in cheap %}
+		<ul class="nav-item">
+				<a class="nav-link active" href="{% url 'rango:buying' n.name %}">
+					<span data-feather="archive"></span>{{ n }}
+				</a>
+			</ul>
+	
+	{% endfor %}
+{% endif %}
+{% endblock %}
+
+{% block body_block %}
+	<div class="container1">
+		<div class="row">
+			<div class="form-group" >
+				<form role="form" method="post" action=".">
+					{% for field in form %}
+						<div class="fieldWrapper">
+							{{ field.errors }}
+							{{ field.label_tag }} {{ field }}
+							{% if field.help_text %}
+							<p class="help">{{ field.help_text|safe }}</p>
+							{% endif %}
+						</div>
+					{% endfor %}
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block sidebar_block2 %}
+Want a new car? Check these out!
+{% if new %}
+	{% for n in new %}
+		<ul class="nav-item">
+				<a class="nav-link active" href="{% url 'rango:buying' n.name %}">
+					<span data-feather="archive"></span>{{ n }}
+				</a>
+			</ul>
+	
+	{% endfor %}
+{% endif %}
+{% endblock %}

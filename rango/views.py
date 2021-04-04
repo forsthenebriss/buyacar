@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from rango.models import UserProfile, Car
-from rango.forms import UserForm, UserProfileForm
+from rango.forms import UserForm, UserProfileForm, CarForm
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -108,6 +108,41 @@ def register(request):
     # finally render the request
     return render(request, 'registration/registration_form.html', context={'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
 
+
+@login_required            
+def add_car(request, username):
+    #initialized variable to false since nothing has beed done yet
+    try:
+        seller = UserProfile.objects.get(slug=username)
+            
+    except UserProfile.DoesNotExist:
+        seller = None
+    #page needs to have a category
+    if seller is None:
+        return redirect('/index/')
+     
+    form = CarForm()
+         
+    if request.method =='POST':
+        #using the forms we grab information from data
+        form = CarForm(request.POST)
+        
+        #if both forms are valid, user is saved
+        if car_form.is_valid():
+            if seller:
+                car = form.save(commit=False)
+            car.seller = seller
+            seller.is_seller = True
+            car.save()
+            #adding profile picture if one was given
+            return redirect(reverse('rango:buying',
+                            kwargs={'username':
+                                    username}))
+        #else prints errors
+        else:
+            print(form.errors)
+    context_dict = {'form': form, 'seller': seller}
+    return render(request, 'rango/add_car.html', context=context_dict)
 
 def show_seller(request, username):
     #creates a dict that can later be used to pass on stuff
