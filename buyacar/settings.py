@@ -125,25 +125,25 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 STATIC_URL = '/static/'
-#sets the location of the static files using the path specified by STATIC_DIR
+# sets the location of the static files using the path specified by STATIC_DIR
 STATICFILES_DIRS = [STATIC_DIR, ]
 
-#specifies path for media files
+# specifies path for media files
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 
-#tuple to help with password protection
+# tuple to help with password protection
 PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 )
-#redirects non-logged in user to the login page
+# redirects non-logged in user to the login page
 LOGIN_URL = 'auth_login'
 
-#allows users to register
+# allows users to register
 REGISTRATION_OPEN = True
 
-#log in after reg
+# log in after reg
 REGISTRATION_AUTO_LOGIN = True
-#redirects after login
+# redirects after login
 LOGIN_REDIRECT_URL = 'rango:index'

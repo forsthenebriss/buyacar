@@ -30,10 +30,10 @@ class CarForm(forms.ModelForm):
     price = forms.IntegerField()
     other = forms.CharField()
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
-    #helps provide association within model and model form
+    # helps provide association within model and model form
     class Meta:
         model = Car
-        #excluding the category field from the form
-        #better bcs we want to exclude less than include, otherwise specify
+        # excluding the category field from the form
+        # better bcs we want to exclude less than include, otherwise specify
         exclude = ('seller',)
        

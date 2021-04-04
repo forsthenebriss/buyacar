@@ -119,7 +119,7 @@ def add_car(request, username):
         seller = None
     #page needs to have a category
     if seller is None:
-        return redirect('/index/')
+        return redirect('/rango/')
      
     form = CarForm()
          
@@ -128,7 +128,7 @@ def add_car(request, username):
         form = CarForm(request.POST)
         
         #if both forms are valid, user is saved
-        if car_form.is_valid():
+        if form.is_valid():
             if seller:
                 car = form.save(commit=False)
             car.seller = seller

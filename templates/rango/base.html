@@ -39,9 +39,10 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav navbar-center  mr-auto">
                         <li class="nav-item"><a class="nav-link" href="{% url 'rango:sellers' %}">Buying</a></li>
+                        {% if user.is_authenticated %}
 						<li class="nav-item "><a class="nav-link" href="{% url 'rango:add_car'  user.get_username  %}">Selling</a></li>
                         
-                        {% if user.is_authenticated %}
+{#                        {% if user.is_authenticated %}#}
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							  Profile
