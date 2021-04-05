@@ -42,7 +42,7 @@ def populate():
     for username, user_data in users.items():
         user = add_user(username, firstname=user_data['firstname'], lastname=user_data['lastname'],
                         email=user_data['email'], password=user_data['password'], address=user_data['address'],
-                        postcode=user_data['postcode'], picture=user_data['picture'])
+                        postcode=user_data['postcode'], picture=user_data['picture'], is_seller=user_data['is_seller'])
         for car in user_data['cars']:
             add_car(user, car['name'], car['brand'], car['model'], car['year'], car['price'], car['is_new'],
                     car['other'], car['picture'])
@@ -67,7 +67,7 @@ def add_car(user, name, brand, model, year, price, is_new, other, picture):
     return car
 
 
-def add_user(username, firstname, lastname, email, password, address, postcode, picture):
+def add_user(username, firstname, lastname, email, password, address, postcode, picture, is_seller):
     user = User.objects.get_or_create(username=username)[0]
     user.first_name = firstname
     user.last_name = lastname
@@ -82,6 +82,7 @@ def add_user(username, firstname, lastname, email, password, address, postcode, 
     profile.picture = picture
     profile.address = address
     profile.postcode = postcode
+    profile.is_seller = is_seller
     profile.save()
 
     return profile
