@@ -31,13 +31,13 @@ def populate():
 
     users = {'oscar45': {'cars': oscar_car, 'username': 'oscar45', 'firstname': 'Oscar', 'lastname': 'Brown',
                          'email': 'Brown45@gmail.com', 'password': '123456', 'address': 'Glasgow',
-                         'postcode': 'G1 1HA', 'picture': 'profile_images/oscar.png'},
+                         'postcode': 'G1 1HA', 'picture': 'profile_images/oscar.png', 'is_seller':1},
              'jane43': {'cars': jane_car, 'username': 'jane43', 'firstname': 'Jane', 'lastname': 'Berry',
                         'email': 'Jane43@gmail.com', 'password': '123456', 'address': 'Glasgow',
-                        'postcode': 'G1 1HA', 'picture': 'profile_images/jane.png'},
+                        'postcode': 'G1 1HA', 'picture': 'profile_images/jane.png', 'is_seller':1},
              'josh67': {'cars': josh_car, 'username': 'josh67', 'firstname': 'Josh', 'lastname': 'Taylor',
                         'email': 'josh67@gmail.com', 'password': '123456', 'address': 'Glasgow',
-                        'postcode': 'G1 1HA', 'picture': 'profile_images/josh.png'}}
+                        'postcode': 'G1 1HA', 'picture': 'profile_images/josh.png', 'is_seller':1}}
 
     for username, user_data in users.items():
         user = add_user(username, firstname=user_data['firstname'], lastname=user_data['lastname'],
