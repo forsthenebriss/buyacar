@@ -29,8 +29,8 @@ class UserProfile(models.Model):
 
 class Car(models.Model):
     # if deleted, everything connected deleted with the category
-    seller = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
-    buyer = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
+    seller = models.ForeignKey(UserProfile, related_name='sell', on_delete=models.CASCADE, null=True)
+    buyer = models.ForeignKey(UserProfile, related_name='buy', on_delete=models.CASCADE, null=True)
     # a title string of maximum 128 chars
     name = models.CharField(max_length=128)
     brand = models.CharField(max_length=128)
