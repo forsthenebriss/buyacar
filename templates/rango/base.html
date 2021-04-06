@@ -19,8 +19,12 @@
 	</div>
 	<center>
 	<div class="topdiv col-md-12">
-	<span>	
-		<input type="text" placeholder="Search..">		
+	<span>
+        <form id="search_form" method="post" action="{% url 'rango:search' %}">
+            {% csrf_token %}
+            <input type="text" name="search_box" placeholder="Search..">
+            <button type="submit" class="btn btn-primary">search</button>
+        </form>
 	</span>
 		<img src="{% static 'images/car.png' %}" alt="Logo" align="left"/>
 		

@@ -1,0 +1,57 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+
+{% block title_block %}
+		Search Result
+{% endblock %}
+
+
+{% block sidebar_block %}
+Want a cheap car? Check these out!
+(idk why these dont work)
+{% if cheap %}
+	{% for n in cheap %}
+		<ul class="nav-item">
+				<a class="nav-link active" href="{% url 'rango:buying' n.name %}">
+					<span data-feather="archive"></span>{{ n }}
+				</a>
+			</ul>
+
+	{% endfor %}
+{% endif %}
+{% endblock %}
+
+{% block body_block %}
+<ul class="nav flex-column">
+{% if search_result %}
+	{% for s in search_result %}
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'rango:show_seller' s.slug %}">
+					<span data-feather="archive"></span>{{ s }}
+				</a>
+			</li>
+	{% endfor %}
+
+{% else %}
+	<li><strong>No matching results.</strong></li>
+{% endif %}
+</ul>
+
+{% endblock %}
+
+
+
+{% block sidebar_block2 %}
+Want a new car? Check these out!
+{% if new %}
+	{% for n in new %}
+		<ul class="nav-item">
+				<a class="nav-link active" href="{% url 'rango:buying' n.name %}">
+					<span data-feather="archive"></span>{{ n }}
+				</a>
+			</ul>
+
+	{% endfor %}
+{% endif %}
+{% endblock %}
