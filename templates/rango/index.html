@@ -76,15 +76,33 @@
 				</center>
 				</div>
 			</div>
-			<center>
 				{% if cheap %}
-					{% for c in cheap %}
-					<img src="{{ MEDIA_URL }}{{ c.picture }}"  width="2000" height="auto"	alt="{{ car.name }}" />
-		
+				
+				var carousel = new bootstrap.Carousel(myCarousel)
+				<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+					<ol class="carousel-indicators">
+						{% for c in cheap %}
+							<li data-target="#carousel" data-slide-to="{{ loop.index0 }}" {% if loop.index0 == 0 %} class="item active" {% endif %}></li>
+							{% endfor %}
+					</ol>
+					<div class="carousel-inner">
+						{% for c in cheap %}
+							<div {% if loop.index0 == 0 %} class="item active" {% else %} class="item" {% endif %}> 
+								<img class="img-responsive center-block" alt="{{ c.picture }}" src="{{ MEDIA_URL }}{{ c.picture }}"/>
+							</div>
 						{% endfor %}
-				 
+					</div>
+
+				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				  </button>
+				  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				  </button>
+				</div>
 				{% endif %}
-			</center>
 			</div>
 		</div>
  <!-- FOOTER -->
@@ -96,8 +114,9 @@
 			</footer>
 					<!-- Bootstrap core JavaScript -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script>window.jQuery || document.write('<script src="https://getbootstrap.com/docs/4.2/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="https://getbootstrap.com/docs/4.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP" crossorigin="anonymous"></script>
+        <script src="{% static "js/jquery-3.3.1.min.js" %}" crossorigin="anonymous"></script>
+		<script src="{% static "js/rango-jquery.js" %}" crossorigin="anonymous"></script>
+		<script>window.jQuery || document.write('<script src="https://getbootstrap.com/docs/4.2/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="https://getbootstrap.com/docs/4.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
         <script src="https://getbootstrap.com/docs/4.2/examples/dashboard/dashboard.js"></script>
     

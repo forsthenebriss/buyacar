@@ -12,20 +12,20 @@ from django.contrib.auth.models import User
 
 def populate():
     oscar_car = [
-        {'name': 'Nissan-pixo-88000km', 'brand': 'Nissan', 'model': 'Pixo', 'year': 2013, 'price': 3490￡, 'is_new': 0,
+        {'name': 'Nissan-pixo-88000km', 'brand': 'Nissan', 'model': 'Pixo', 'year': 2013, 'price': 3490, 'is_new': 0,
          'other': 'Nothing', 'picture': 'car_images/best_electric_cars_2021.jpg'}]
 
     jane_car = [
-        {'name': 'Renault-Clio-V', 'brand': 'Renault', 'model': 'Clio', 'year': 2018, 'price': 7500￡, 'is_new': 1,
+        {'name': 'Renault-Clio-V', 'brand': 'Renault', 'model': 'Clio', 'year': 2018, 'price': 7500, 'is_new': 1,
          'other': 'Nothing', 'picture': 'car_images/clioV.png'},
-        {'name': 'Renault-Clio-IV', 'brand': 'Renault', 'model': 'Clio', 'year': 2015, 'price': 5000￡, 'is_new': 0,
+        {'name': 'Renault-Clio-IV', 'brand': 'Renault', 'model': 'Clio', 'year': 2015, 'price': 5000, 'is_new': 0,
          'other': 'Nothing', 'picture': 'car_images/clioIV.jpg'},
     ]
 
     josh_car = [
-        {'name': 'My-collection-BMW', 'brand': 'BMW', 'model': 'i8', 'year': 2015, 'price': 75000￡, 'is_new': 0,
+        {'name': 'My-collection-BMW', 'brand': 'BMW', 'model': 'i8', 'year': 2015, 'price': 75000, 'is_new': 0,
          'other': 'Nothing', 'picture': 'car_images/bmw-a8.jpg'},
-        {'name': 'Ford-focus', 'brand': 'Ford', 'model': 'Focus', 'year': 2012, 'price': 8000￡, 'is_new': 0,
+        {'name': 'Ford-focus', 'brand': 'Ford', 'model': 'Focus', 'year': 2012, 'price': 8000, 'is_new': 0,
          'other': 'Nothing', 'picture': 'car_images/ford-focus.jpg'},
     ]
 
