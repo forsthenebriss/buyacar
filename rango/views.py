@@ -15,7 +15,6 @@ def get_server_side_cookie(request, cookie, default_val=None):
         val = default_val
     return val
 
-
 def visitor_cookie_handler(request):
     visits = int(get_server_side_cookie(request, 'visits', '1'))
     last_visit_cookie = get_server_side_cookie(request, 'last_visit', str(datetime.now()))
@@ -38,14 +37,7 @@ def user_logout(request):
     logout(request)
     return redirect(reverse('rango:index'))
 
-
-# restricted page only for logged in
-@login_required
-def restricted(request):
-    context_dict = {}
-    return render(request, 'rango/restricted.html', context=context_dict)
-
-
+#search with filter option
 def search(request):
     context_dict = {}
     if request.method == 'POST':
@@ -63,7 +55,8 @@ def search(request):
         seller_list = UserProfile.objects.filter(is_seller=True)
         # adds findings to the dictionary
         context_dict['sellers'] = seller_list
-        new_cars = Car.objects.order_by('year')[:5]
+        #adds lists of new and cheap cars into the dictionary
+        new_cars = Car.objects.filter(is_new=True).order_by('year').reverse()[:5]
         cheap_cars = Car.objects.order_by('price')[:5]
         context_dict['new'] = new_cars
         context_dict['cheap'] = cheap_cars
@@ -146,7 +139,7 @@ def add_car(request, username):
 
     except UserProfile.DoesNotExist:
         seller = None
-    # page needs to have a category
+    # car needs to have a seller
     if seller is None:
         return redirect('/rango/')
 
@@ -184,13 +177,13 @@ def show_seller(request, username):
         cars = Car.objects.filter(seller=seller)
         # adds findings to the dictionary
         context_dict['sellers'] = seller
-        new_cars = Car.objects.order_by('year')[:5]
+        context_dict['cars'] = cars
+        #adds lists of new and cheap cars into the dictionary
+        new_cars = Car.objects.filter(is_new=True).order_by('year').reverse()[:5]
         cheap_cars = Car.objects.order_by('price')[:5]
         context_dict['new'] = new_cars
         context_dict['cheap'] = cheap_cars
-        context_dict['cars'] = cars
-
-        # or throws an exeption
+    # or throws an exeption
     except UserProfile.DoesNotExist:
         context_dict['sellers'] = None
     # renders a response for the client with the dict required
@@ -205,7 +198,8 @@ def sellers(request):
         seller_list = UserProfile.objects.filter(is_seller=True)
         # adds findings to the dictionary
         context_dict['sellers'] = seller_list
-        new_cars = Car.objects.order_by('year')[:5]
+        #adds lists of new and cheap cars into the dictionary
+        new_cars = Car.objects.filter(is_new=True).order_by('year').reverse()[:5]
         cheap_cars = Car.objects.order_by('price')[:5]
         context_dict['new'] = new_cars
         context_dict['cheap'] = cheap_cars
@@ -216,35 +210,16 @@ def sellers(request):
     # renders a response for the client with the dict required
     return render(request, 'rango/sellers.html', context=context_dict)
 
-
-# creates a view about
-def about(request):
-    context_dict = {}
-    visitor_cookie_handler(request)
-    context_dict['visits'] = request.session['visits']
-    context_dict['boldmessage'] = 'This tutorial has been put together by Romana Canigova'
-    # renders a response for the client with the dict required
-    return render(request, 'rango/about.html', context=context_dict)
-
-
 # creates a view index
 def index(request):
     # cookie function
     visitor_cookie_handler(request)
-    # takes the 5 most liked categories as a list
+    #adds lists of new and cheap cars into the dictionary
     context_dict = {}
-    # a dictionary to match the variables in templates
-
-    # pcar_list = PCar.objects.order_by('-year')[:5]
-    # ncar_list = NCar.objects.order_by('-price')[5:]
-    category_list = {}
-    page_list = {}
-    # populating the dictionary
-    # context_dict['ncars'] = ncar_list
-    # context_dict['pcar_list'] = pcar_list
-    context_dict['categories'] = category_list
-    context_dict['pages'] = page_list
-    # renders a response for the client with the dict required
+    new_cars = Car.objects.filter(is_new=True).order_by('year').reverse()[:5]
+    cheap_cars = Car.objects.order_by('price')[:5]
+    context_dict['new'] = new_cars
+    context_dict['cheap'] = cheap_cars
     return render(request, 'rango/index.html', context=context_dict)
 
 
@@ -253,9 +228,8 @@ def buying(request, name):
     # cookie function
     context_dict = {}
     visitor_cookie_handler(request)
+    #gets the requested car
     car = Car.objects.get(name=name)
-    # takes the 5 most liked categories as a list
-    # populating the dictionary
     context_dict['car'] = car
     # renders a response for the client with the dict required
     return render(request, 'rango/buying.html', context=context_dict)

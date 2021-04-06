@@ -14,14 +14,15 @@ class UserForm(forms.ModelForm):
 
 class UserProfileForm(forms.ModelForm):
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
-
+    # additional properties
     class Meta:
         model = UserProfile
         fields = ('website', 'picture', 'address', 'postcode', 'is_seller')
 
 
-# class allowing to create a form from a preexisting model
+# class allowing to create a car from a preexisting model
 class CarForm(forms.ModelForm):
+    # fields for registering a car, either required or not
     name = forms.CharField(max_length=128, help_text="Please enter name for your ad up to 128 characters")
     brand = forms.CharField(max_length=128, help_text="Please enter the manufacturer of your car")
     model = forms.CharField(max_length=128, help_text="Please enter car's model")

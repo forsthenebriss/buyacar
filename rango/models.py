@@ -15,7 +15,7 @@ class UserProfile(models.Model):
     # string for better handling
     slug = models.SlugField(unique=True, null=True)
     
-    # each time category is updated, the slug is updated as well
+    # each time userprofile is updated, the slug is updated as well
     def save(self, *args, **kwargs):
         self.slug = slugify(self.user.username)
         super(UserProfile, self).save(*args, **kwargs)
@@ -28,13 +28,14 @@ class UserProfile(models.Model):
 
 
 class Car(models.Model):
-    # if deleted, everything connected deleted with the category
+    # if deleted, everything connected deleted with buyer/seller
     seller = models.ForeignKey(UserProfile, related_name='sell', on_delete=models.CASCADE, null=True)
     buyer = models.ForeignKey(UserProfile, related_name='buy', on_delete=models.CASCADE, null=True)
     # a title string of maximum 128 chars
     name = models.CharField(max_length=128)
     brand = models.CharField(max_length=128)
     model = models.CharField(max_length=128)
+    # additional requirements
     year = models.IntegerField(default=2021)
     price = models.IntegerField(default=0)
     is_new = models.BooleanField(default=True)
