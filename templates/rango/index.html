@@ -76,33 +76,18 @@
 				</center>
 				</div>
 			</div>
+				<center>
+				<div class="col-md-6">
+				<h1 class="jumbotron-heading">Our cheapest cars! </h1>
 				{% if cheap %}
-				
-				var carousel = new bootstrap.Carousel(myCarousel)
-				<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-					<ol class="carousel-indicators">
-						{% for c in cheap %}
-							<li data-target="#carousel" data-slide-to="{{ loop.index0 }}" {% if loop.index0 == 0 %} class="item active" {% endif %}></li>
-							{% endfor %}
-					</ol>
-					<div class="carousel-inner">
-						{% for c in cheap %}
-							<div {% if loop.index0 == 0 %} class="item active" {% else %} class="item" {% endif %}> 
-								<img class="img-responsive center-block" alt="{{ c.picture }}" src="{{ MEDIA_URL }}{{ c.picture }}"/>
-							</div>
-						{% endfor %}
-					</div>
-
-				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					<span class="visually-hidden">Previous</span>
-				  </button>
-				  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					<span class="visually-hidden">Next</span>
-				  </button>
-				</div>
+					{% for c in cheap %}
+					<a class="nav-link active" href="{% url 'rango:buying' c.name %}"><img src="{{ MEDIA_URL }}{{ c.picture }}"  width="500" height="auto"	alt="{{ car.name }}" /></a>
+					{{ c.price }} £
+				{% endfor %}
 				{% endif %}
+				</div>
+				
+				</center>
 			</div>
 		</div>
  <!-- FOOTER -->
