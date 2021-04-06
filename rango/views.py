@@ -81,7 +81,7 @@ def user_login(request):
                 return redirect(reverse('rango:index'))
             else:
                 # inactive accounts cant log in
-                return HttpResponse("Your Rango account is disabled.")
+                return HttpResponse("Your buyacar account is disabled.")
         else:
             # not possible for the user to login due to bad username/password
             print(f"Invalid login details: {username}, {password}")
@@ -236,4 +236,4 @@ def buying(request, name):
 
 
 def enquire(request):
-    return HttpResponse("Rango says hey there partner!")
+    return HttpResponse("Welcome to buyacar")
