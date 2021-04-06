@@ -66,7 +66,6 @@ def search(request):
         context_dict['sellers'] = None
     return render(request, 'rango/search.html', context=context_dict)
 
-
 def user_login(request):
     if request.method == 'POST':
         # get the username and password provided by the user
@@ -176,7 +175,7 @@ def show_seller(request, username):
         seller = UserProfile.objects.get(slug=username)
         cars = Car.objects.filter(seller=seller)
         # adds findings to the dictionary
-        context_dict['sellers'] = seller
+        context_dict['seller'] = seller
         context_dict['cars'] = cars
         #adds lists of new and cheap cars into the dictionary
         new_cars = Car.objects.filter(is_new=True).order_by('year').reverse()[:5]
@@ -185,7 +184,7 @@ def show_seller(request, username):
         context_dict['cheap'] = cheap_cars
     # or throws an exeption
     except UserProfile.DoesNotExist:
-        context_dict['sellers'] = None
+        context_dict['seller'] = None
     # renders a response for the client with the dict required
     return render(request, 'rango/show_seller.html', context=context_dict)
 
@@ -237,3 +236,10 @@ def buying(request, name):
 
 def enquire(request):
     return HttpResponse("Rango says hey there partner!")
+
+#privacy and terms responses, now include only headings, would include the whole terms/privacy policy if there was actual business
+def privacy(request):
+    return HttpResponse("What We Collect\nHow We Use Information About You \n How Information About You is Shared\nAds and Analytics Partners\nYour Choices\nOther Information\nContact Us", content_type="text/plain")
+
+def terms(request):
+    return HttpResponse("Terms and Conditions\nTerms of Service\nUser Agreement\nAcceptable Use Policy", content_type="text/plain")

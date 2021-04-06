@@ -46,13 +46,11 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'rango:sellers' %}">Buying</a></li>
                         {% if user.is_authenticated %}
                         <li class="nav-item "><a class="nav-link" href="{% url 'rango:add_car' user.get_username %}">Selling</a></li>
-
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							  Profile
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-							  <a class="dropdown-item" href="{% url 'rango:about' %}">View profile</a>
 							  <a class="dropdown-item" href="{% url 'auth_password_change' %}">Change Password</a>
 							  <a class="dropdown-item" href="{% url 'auth_logout' %}?next=/rango/">Logout</a>
 							</div>
@@ -87,7 +85,7 @@
             <footer>
 				<center>
                     <p class="float-right"><a href="#">Back to top</a></p>
-                        <p>&copy; 2021 BuyACar &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+                        <p>&copy; 2021 BuyACar &middot; <a href="{% url 'rango:privacy' %}">Privacy</a> &middot; <a href="{% url 'rango:terms' %}">Terms</a></p>
                 </center>
 			</footer>
 					<!-- Bootstrap core JavaScript -->

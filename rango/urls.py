@@ -10,6 +10,8 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('logout/', views.user_logout, name='logout'),
     path('enquire/', views.enquire, name='enquire'),
+    path('privacy/', views.privacy, name='privacy'),
+    path('terms/', views.terms, name='terms'),
     path('sellers/', views.sellers, name='sellers'),
     path('search/', views.search, name='search'),
     #path to any seller/car according to its slug

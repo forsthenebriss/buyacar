@@ -2,8 +2,7 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	{% if car %}
-	
+	{% if car %}	
 		{{ car.name }}
 	{% else %}
 		The chosen car does not exist
@@ -55,8 +54,8 @@
 {% block sidebar_block2 %}
 	{% if user.is_authenticated %}
 		{% if car %}
-		Enquire about this vehicle:
-		<ul class="nav-item"><a class="nav-link" href="{% url 'rango:enquire' %}">Enquire</a></ul>                 
+		<h1>Enquire</h1>  
+			{{ car.seller.user.email }}		
 		{% else %}
 		There is no car to enquire about        
 		{% endif %}

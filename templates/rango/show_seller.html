@@ -2,15 +2,15 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	{% if sellers %}
-		{{ sellers.slug }}
+	{% if seller %}
+		{{ seller.slug }}
 	{% else %}
 		Unknown Seller
 	{% endif %}
 {% endblock %}
 
 {% block body_block %}
-	{% if sellers %}
+	{% if seller %}
 		{% if cars %}
 		<ul>
 			<h4>Cars available from this seller</h4>
@@ -26,4 +26,29 @@
 	{% else %}
 		Seller does not exist.
 	{% endif %}	
+{% endblock %}		
+
+
+{% block sidebar_block2 %}
+<center>
+	<div>
+		{% if  seller.user.first_name %}
+		<ul><h5>FIRST NAME: </h5>{{ seller.user.first_name }}</ul>
+		{% endif %}
+		{% if  seller.user.last_name %}
+		<ul><h5>LAST NAME: </h5>{{ seller.user.last_name }}</ul>
+		{% endif %}
+		{% if  seller.address %}
+		<ul><h5>ADRESS: </h5>{{ seller.address }}</ul>
+		{% endif %}
+		{% if  seller.picture %}
+		<ul><h5>PROFILE PICTURE: </h5>
+		<img src="{{ MEDIA_URL }}{{ seller.picture }}"
+		alt="{{ car.name }}"  width="200" height=auto/></ul>
+		{% endif %}
+		{% if  seller.website %}
+		<ul><h5>WEBSITE: </h5>{{ seller.website }}</ul>
+		{% endif %}
+	<div>
+	</center>
 {% endblock %}		
