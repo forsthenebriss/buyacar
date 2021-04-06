@@ -47,7 +47,6 @@
                         {% if user.is_authenticated %}
 						<li class="nav-item "><a class="nav-link" href="{% url 'rango:add_car'  user.get_username  %}">Selling</a></li>
                         
-{#                        {% if user.is_authenticated %}#}
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							  Profile
@@ -86,7 +85,8 @@
 				<div class="row">
 					<div class="col-md-3  d-none d-md-block bg-light border sidebar ">
 					<center>
-						<p>{% block sidebar_block %}
+						<p>		
+							{% block sidebar_block %}
 								The best site to look when getting a car!
 							{% endblock %}
 						</p>
