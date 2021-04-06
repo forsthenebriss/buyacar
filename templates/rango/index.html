@@ -76,9 +76,15 @@
 				</center>
 				</div>
 			</div>
+			<center>
+				{% if cheap %}
+					{% for c in cheap %}
+					<img src="{{ MEDIA_URL }}{{ c.picture }}"  width="2000" height="auto"	alt="{{ car.name }}" />
 		
-		
-			SLIDESHOW 2x
+						{% endfor %}
+				 
+				{% endif %}
+			</center>
 			</div>
 		</div>
  <!-- FOOTER -->
