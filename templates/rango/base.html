@@ -23,6 +23,7 @@
         <form id="search_form" method="post" action="{% url 'rango:search' %}">
             {% csrf_token %}
             <input type="text" name="search_box" placeholder="Search..">
+            <p><input type="checkbox" name="new_car" value="True" checked="checked" />New Car</p>
             <button type="submit" class="btn btn-primary">search</button>
         </form>
 	</span>

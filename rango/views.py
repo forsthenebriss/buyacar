@@ -47,13 +47,17 @@ def restricted(request):
 
 
 def search(request):
+    context_dict = {}
     if request.method == 'POST':
         text = request.POST.get('search_box')
+        new = False
+        if request.POST.get('new_car') is not None:
+            new = request.POST.get('new_car')
         print(text)
-    result = Car.objects.filter(name__icontains=text)
 
-    context_dict = {}
-    context_dict['search_result'] = result
+        result = Car.objects.filter(name__icontains=text, is_new=new)
+        context_dict['search_result'] = result
+
     try:
         # gets list of users for which is_seller is true
         seller_list = UserProfile.objects.filter(is_seller=True)
