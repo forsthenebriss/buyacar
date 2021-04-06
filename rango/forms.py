@@ -35,5 +35,5 @@ class CarForm(forms.ModelForm):
         model = Car
         # excluding the category field from the form
         # better bcs we want to exclude less than include, otherwise specify
-        exclude = ('seller',)
+        exclude = ('seller', 'buyer')
        

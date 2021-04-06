@@ -158,11 +158,12 @@ def add_car(request, username):
                 car = form.save(commit=False)
             car.seller = seller
             seller.is_seller = True
+            if 'picture' in request.FILES:
+                car.picture = request.FILES['picture']
+
             car.save()
             # adding profile picture if one was given
-            return redirect(reverse('rango:buying',
-                                    kwargs={'username':
-                                                username}))
+            return redirect(reverse('rango:sellers'))
         # else prints errors
         else:
             print(form.errors)

@@ -24,7 +24,8 @@ Want a cheap car? Check these out!
 	<div class="container1">
 		<div class="row">
 			<div class="form-group" >
-				<form role="form" method="post" action=".">
+				<form role="form" method="post" action="." enctype="multipart/form-data">
+                    {% csrf_token %}
 					{% for field in form %}
 						<div class="fieldWrapper">
 							{{ field.errors }}
